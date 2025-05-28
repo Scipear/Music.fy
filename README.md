@@ -1,2 +1,2 @@
 - "npm install" Para instalar las dependencias
-- "nmp run dev" Para iniciar el servidor
+- "npm run dev" Para iniciar el servidor
