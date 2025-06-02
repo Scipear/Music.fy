@@ -11,6 +11,7 @@
     padding-inline-start: 20px;
     height: 100vh;
     width: 1000px;
+    background-color: #1D1D1D;
 }
 
 .carousel-container{
@@ -51,6 +52,19 @@
     margin: 0px;
 }
 
+.title-container button{
+    font-family: inherit;
+    font-size: 2.25rem;
+    border-width: 8px;
+    border-radius: 100px;
+    padding: 4px 56px;
+    margin-block-start: 18px;
+    border-color: #478426;
+    background-color: #000000;
+    color: #478426;
+    transition: 0.25s ease-in;
+}
+
 /* Animaciones */
 @keyframes scroll-up {
     0% { transform: translateY(0); }
@@ -60,4 +74,8 @@
 @keyframes scroll-down {
     0% { transform: translateY(-50%); }
     100% { transform: translateY(0); }
+}
+
+.title-container button:hover{
+    transform: translateY(-5px);
 }

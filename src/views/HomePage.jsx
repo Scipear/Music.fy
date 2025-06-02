@@ -1,4 +1,5 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import ColumnItems from "../components/ColumnItems.jsx"
 import AmongMySwan from "../assets/Among My Swan.jpg"
 import ImaginalDisk from "../assets/Imaginal Disk.jpg"
@@ -28,6 +29,12 @@ import Funeral from "../assets/Funeral.jpg"
 import "./styles/HomePage-style.css"
 
 const HomePage = () => {
+    const navigate = useNavigate()
+
+    const handleLoginClick = () => {
+        navigate('/login');
+    }
+
     return(
         <div className="container">
             <div className="visual-shape">
@@ -52,7 +59,7 @@ const HomePage = () => {
 
             <div className="title-container">
                 <h1>Music.fy</h1>
-                <button>Iniciar Sesion</button>
+                <button onClick={handleLoginClick}>Iniciar Sesion</button>
             </div>
         </div>
     )

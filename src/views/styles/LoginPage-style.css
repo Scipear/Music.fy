@@ -1,0 +1,73 @@
+h1, h2 {
+    margin: 0;
+}
+
+h1 {
+    font-size: 6rem;
+    margin-block: 40px;
+}
+
+h2 {
+    font-size: 3rem;
+    margin-block-end: 35px;
+}
+
+.container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #478426;
+}
+
+.modal {
+    max-width: 500px;
+    border-radius: 18px;
+    padding-block-start: 55px;
+    padding-inline: 40px;
+    background-color: #3C3C3C;
+    box-shadow: 0px 0px 25px 10px rgba(72, 72, 72, 0.70);
+}
+
+.modal button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    font-size: 2.25rem;
+    padding: 12px 64px;
+    margin-block: 40px 120px;
+    border-radius: 1000px;
+    color: #313131;
+    background-color: #478426;
+    box-shadow: 0px 5px 9px 3px rgba(0, 0, 0, 0.25);
+    transition: 0.25s ease-in;
+}
+
+.input-container label {
+    display: block;
+    font-size: 1.5rem;
+}
+
+.input-container {
+    place-items: start;
+}
+
+.input-container input {
+    border: none;
+    font-size: 1.5rem;
+    width: 420px;
+    height: 60px;
+    border-radius: 8px;
+    margin-block-end: 40px;
+    color: #ffffff;
+    background-color: #313131;
+}
+
+.modal button:hover{
+    background-color: #71be47;
+    transform: translateY(-10px);
+}
+
+.modal button:focus{
+    transition: none;
+    background-color: #478426;
+}
