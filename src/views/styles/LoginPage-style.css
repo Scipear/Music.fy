@@ -1,13 +1,14 @@
-h1, h2 {
+h1, h2, h3 {
     margin: 0;
+    font-weight: 400;
 }
 
-h1 {
+.container-login h1 {
     font-size: 6rem;
     margin-block: 40px;
 }
 
-h2 {
+.modal h2 {
     font-size: 3rem;
     margin-block-end: 35px;
 }
