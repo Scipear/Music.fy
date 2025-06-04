@@ -11,14 +11,14 @@ const LoginPage = () => {
         event.preventDefault(); // Evita recargar la página al enviar el formulario
 
         try {
-            const response = await axios.post("http://localhost:5173/api/login", {
+            const response = await axios.post("http://localhost:3000/login", {
                 nombre,
                 password
             });
 
             setMensaje(response.data.message); // Guarda la respuesta del backend
         } catch (error) {
-            setMensaje("error desde el frontd");
+            setMensaje("error desde el front");
             console.error("Error al iniciar sesión:", error);
         }
     };

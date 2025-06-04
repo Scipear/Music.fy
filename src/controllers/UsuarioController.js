@@ -7,7 +7,7 @@ const client = new cassandra.Client({
     keyspace: 'musicdb'
 });
 
-exports.insertarUsuario = async (req, res) => {
+export async function insertarUsuario(req, res) {
     const { password, nombre, ciudad, edad } = req.body;
 
     if (!nombre || !ciudad) {
@@ -31,7 +31,7 @@ exports.insertarUsuario = async (req, res) => {
 
 export async function loginUsuario(nombre, password) {
     try {
-        const query = 'SELECT * FROM usuarios WHERE nombre = ?';
+        const query = 'SELECT * FROM usuarios WHERE nombre = ? ALLOW FILTERING';
         const result = await client.execute(query, [nombre], { prepare: true });
 
         if (result.rowLength === 0) {
@@ -39,9 +39,9 @@ export async function loginUsuario(nombre, password) {
         }
 
         const userData = result.rows[0];
-        const contraseñaValida = await bcrypt.compare(password, userData.password);
+        //const contraseñaValida = await bcrypt.compare(password, userData.password);
 
-        if (contraseñaValida) {
+        if (password == userData.password) {
             return { success: true, message: 'Login exitoso', usuario: userData.nombre };
         } else {
             return { success: false, message: 'Contraseña incorrecta' };

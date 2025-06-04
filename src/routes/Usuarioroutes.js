@@ -1,9 +1,9 @@
-import express from 'express';
-import usuarioController from '../controllers/UsuarioController.js';
+import { Router } from 'express';
+import {insertarUsuario, loginUsuario} from '../controllers/UsuarioController.js';
 
-const router = express.Router();
+const router = Router();
 
-router.post('/register', usuarioController.insertarUsuario);
+router.post('/register', insertarUsuario);
 
 router.post('/login', async (req, res) => {
     const { nombre, password } = req.body;
@@ -16,6 +16,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-
-module.exports = router;
+export default router

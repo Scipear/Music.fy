@@ -7,14 +7,14 @@ const app = express(); // Aquí se define 'app'
 
 app.use(cors()); // Ahora sí puedes usar CORS
 app.use(express.json());
-app.use('/api', usuarioRoutes);
+app.use(usuarioRoutes);
 
 // Servir archivos de React
-app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+/*app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-});
+});*/
 
 app.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
