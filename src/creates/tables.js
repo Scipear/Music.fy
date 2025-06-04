@@ -36,10 +36,23 @@ async function crearTablas() {
     /*Recomendacion canciones mas escuchadas*/
     `CREATE TABLE cancionesPorusuarios (
       cancion_id UUID,
+      nombre TEXT,
+      artista TEXT,
+      album TEXT,
+      genero TEXT,
+      duracion TEXT,
       total INT,
-      PRIMARY KEY(cancion_id, total)
+      PRIMARY KEY(cancion_id)
     );`,
     /*Recomendacion canciones mas escuchadas por genero */
+    `CREATE TABLE canciones_mas_escuchadas_por_genero (
+    genero TEXT,
+    cancion_id UUID,
+    titulo TEXT,
+    reproducciones INT,
+    PRIMARY KEY (genero, cancion_id)
+    );`,
+
     
     /* Segunda consulta olap */
     `CREATE TABLE cancion_mas_escuchadas_ciudad (

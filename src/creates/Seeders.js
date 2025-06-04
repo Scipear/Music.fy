@@ -530,6 +530,33 @@ async function insertarDatos() {
         console.error("Error al insertar datos:", err);
     }
 }
+/*RECOMENDACION DE CANCIONES POR REPRODUCCION */
+async function poblarCancionesPorUsuarios() {
+    try {
+        console.log("Obteniendo canciones desde la base de datos...");
+
+        // Consultar todas las canciones
+        const cancionesQuery = 'SELECT id, titulo, artista, album, genero, duracion FROM canciones';
+        const cancionesResult = await client.execute(cancionesQuery);
+
+        console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
+
+        for (const row of cancionesResult.rows) {
+            const reproducciones = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
+
+            const insertQuery = 'INSERT INTO cancionesPorusuarios (cancion_id, nombre, artista, album, genero, duracion, total) VALUES (?, ?, ?, ?, ?, ?, ?)';
+            await client.execute(insertQuery, [row.id, row.titulo, row.artista, row.album, row.genero, row.duracion, reproducciones], { prepare: true });
+
+            console.log(`Insertada: ${row.titulo} con ${reproducciones} reproducciones.`);
+        }
+
+        console.log("¡Tabla cancionesPorusuarios poblada correctamente! 🚀");
+    } catch (error) {
+        console.error("Error al poblar la tabla:", error);
+    } finally {
+        await client.shutdown();
+    }
+}
 
 async function runSeeders() {
   try {
@@ -541,6 +568,8 @@ async function runSeeders() {
 
     console.log('Vinculando usuarios con canciones...');
     await insertarDatos();
+    console.log('Recomendacion por reproduccion cargada...');
+    await poblarCancionesPorUsuarios();
 
     console.log('Todos los datos fueron insertados correctamente.');
   } catch (err) {
