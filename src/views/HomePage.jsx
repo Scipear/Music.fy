@@ -32,7 +32,7 @@ const HomePage = () => {
     const navigate = useNavigate()
 
     const handleLoginClick = () => {
-        navigate('/mainPage');
+        navigate('/login');
     }
 
     return(
