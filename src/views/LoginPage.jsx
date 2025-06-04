@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles/LoginPage-style.css";
 
@@ -6,6 +7,7 @@ const LoginPage = () => {
     const [nombre, setNombre] = useState("");
     const [password, setPassword] = useState("");
     const [mensaje, setMensaje] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault(); // Evita recargar la página al enviar el formulario
@@ -17,6 +19,10 @@ const LoginPage = () => {
             });
 
             setMensaje(response.data.message); // Guarda la respuesta del backend
+
+            if(response.data.success){
+                navigate('/mainPage')
+            }
         } catch (error) {
             setMensaje("error desde el front");
             console.error("Error al iniciar sesión:", error);

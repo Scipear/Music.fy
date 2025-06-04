@@ -37,7 +37,7 @@ export async function loginUsuario(nombre, password) {
         if (result.rowLength === 0) {
             return { success: false, message: 'Usuario no encontrado' };
         }
-
+        
         const userData = result.rows[0];
         //const contraseñaValida = await bcrypt.compare(password, userData.password);
 
