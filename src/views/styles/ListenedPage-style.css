@@ -1,0 +1,63 @@
+.listened-container{
+    color: #478426;
+}
+
+.header-container {
+    padding: 30px 20px;
+}
+
+.header-container h1 {
+    text-align: left;
+}
+
+.listened-container h1 {
+    font-size: 6rem;
+}
+
+.listened-songs-container {
+    padding-block: 20px;
+    padding-inline: 96px;
+    color: #ffffff;
+}
+
+.listened-songs-container h2{
+    text-align: left;
+    font-size: 4rem;
+    text-shadow: 3px 3px 3px #4D4D4D;
+}
+
+.song-data-container{
+    padding-block: 20px;
+    margin-inline-start: 34px;
+}
+
+.song-data-container:hover{
+    background-color: #252525;
+}
+
+.song-data-container img {
+    object-fit: contain;
+    width: 200px;
+}
+
+.song-data {
+    display: flex;
+    gap: 9px;
+    padding-inline-start: 30px;
+}
+
+.song-data p {
+    text-align: left;
+    margin: 0px;
+    margin-block-end: 5px;
+    font-size: 1.5rem;
+}
+
+.song-cover-container {
+    width: 200px;
+}
+
+.song-cover-container h3 {
+    font-size: 2rem;
+    margin-block-start: 5px;
+}
