@@ -9,9 +9,11 @@ const MainPage = () => {
                 <h1>Music.fy</h1>
             </div>  
 
-        <div class="buscador">
-        <input type="text" placeholder="Buscar artista...">
-        <button><i class="fa-duotone fa-solid fa-magnifying-glass"></i></button>
+        <div className ="buscador">
+            <div className="button">
+                <button><i className="fa-duotone fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            
         </div>
 
         <div className = "rec-container">

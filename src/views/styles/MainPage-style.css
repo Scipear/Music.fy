@@ -1,6 +1,6 @@
 .MainPage-container{
     color: #478426;
-    /* background-color: azure; */
+    /* background-color: azure;  */
 }
 
 .header-container{
@@ -29,4 +29,46 @@
 
 .header2-container h1{
     text-align: left;
+}
+
+
+/*Boton*/
+
+
+.buscador{
+    color: antiquewhite;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    padding: 20px;
+    padding-right: 200px;
+    position: relative;
+    border: 0;
+}
+
+
+.button{
+    padding: 10px;
+    background-color: rgb(130, 196, 56);
+    border-radius: 20px;
+    border: 0;
+    color: beige;
+    right: 0;
+    position: margin;
+}
+
+button:hover{
+    background-color: transparent;
+}
+
+/* sang-serif para colocar la letra gruesa */
+input{
+    font-family: 'Arial Narrow';
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 20px 20px 20px 20px;
+    border: 0;
+    font-size: irem;
+    outline: none;
+    width: 400px;
 }
