@@ -25,4 +25,29 @@ exports.insertarUsuario = async (req, res) => {
         console.error("Error al insertar usuario:", err);
         res.status(500).json({ error: "Error al insertar usuario", detalle: err.message });
     }
+
+
+};
+
+export async function loginUsuario(nombre, password) {
+    try {
+        const query = 'SELECT * FROM usuarios WHERE nombre = ?';
+        const result = await client.execute(query, [nombre], { prepare: true });
+
+        if (result.rowLength === 0) {
+            return { success: false, message: 'Usuario no encontrado' };
+        }
+
+        const userData = result.rows[0];
+        const contraseñaValida = await bcrypt.compare(password, userData.password);
+
+        if (contraseñaValida) {
+            return { success: true, message: 'Login exitoso', usuario: userData.nombre };
+        } else {
+            return { success: false, message: 'Contraseña incorrecta' };
+        }
+    } catch (error) {
+        console.error('Error en loginnnnnn:', error);
+        return { success: false, message: 'Error al procesar login' };
+    }
 };

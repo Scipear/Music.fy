@@ -33,12 +33,14 @@ async function crearTablas() {
       fecha_reproduccion TIMESTAMP,
       PRIMARY KEY (usuario_id, fecha_reproduccion, cancion_id)
     );`,
-    /*Historial de canciones por usuarios */
+    /*Recomendacion canciones mas escuchadas*/
     `CREATE TABLE cancionesPorusuarios (
       cancion_id UUID,
       total INT,
       PRIMARY KEY(cancion_id, total)
     );`,
+    /*Recomendacion canciones mas escuchadas por genero */
+    
     /* Segunda consulta olap */
     `CREATE TABLE cancion_mas_escuchadas_ciudad (
       ciudad TEXT,
