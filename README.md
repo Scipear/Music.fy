@@ -1,14 +1,14 @@
 ## PRIMERAMENTE 
 - Ejecutar el siguiente comando para instalar todas las dependencias.
   ```bash
-    nmp install
+    npm install
   ```
   
 ## PARA CORRER EL FRONT
 
 - Ejecutar el siguiente comando.
   ```bash
-    nmp run dev
+    npm run dev
   ```
 
 ## PARA CREAR LA BASE DE DATOS
