@@ -7,10 +7,19 @@ const MainPage = () => {
     return(
        
         <div className="MainPage-container">
-
+            
             <div className="sidebar">
                 <div className="sidebar-container">
                     <Sidebar date='Arturo Padilla'/> 
+                        <ul>
+                            <li>
+                                <a href="">Escuchado recientemente</a>
+                            </li>
+
+                            <li>
+                                <a href="">Cerra Sesion</a>
+                            </li>
+                        </ul>
                 </div>
             </div>
 
