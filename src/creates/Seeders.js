@@ -311,18 +311,18 @@ const canciones = [
   { titulo: "House Of Cards", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "5:28", portada: "In Rainbows.webp"},
   { titulo: "Jigsaw Falling Into Place", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "4:08", portada: "In Rainbows.webp"},
   { titulo: "Videotape", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "4:39", portada: "In Rainbows.webp"},
-  { titulo: "Airbag", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:47", portada: "OK Computer.webp"},
-  { titulo: "Paranoid Android", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "6:27", portada: "OK Computer.webp"},
-  { titulo: "Subterranean Momesick Alien", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "OK Computer.webp"},
-  { titulo: "Exit Music (For A Film)", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "OK Computer.webp"},
-  { titulo: "Let Down", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:59", portada: "OK Computer.webp"},
-  { titulo: "Karma Police", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:24", portada: "OK Computer.webp"},
-  { titulo: "Fitter Happier", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "1:57", portada: "OK Computer.webp"},
-  { titulo: "Electioneering", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:50", portada: "OK Computer.webp"},
-  { titulo: "Climbing Up the Walls", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:45", portada: "OK Computer.webp"},
-  { titulo: "No Surprises", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:49", portada: "OK Computer.webp"},
-  { titulo: "Lucky", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:18", portada: "OK Computer.webp"},
-  { titulo: "The Tourist", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "5:26", portada: "OK Computer.webp"},
+  { titulo: "Airbag", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:47", portada: "Ok Computer.webp"},
+  { titulo: "Paranoid Android", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "6:27", portada: "Ok Computer.webp"},
+  { titulo: "Subterranean Momesick Alien", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "Ok Computer.webp"},
+  { titulo: "Exit Music (For A Film)", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "Ok Computer.webp"},
+  { titulo: "Let Down", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:59", portada: "Ok Computer.webp"},
+  { titulo: "Karma Police", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:24", portada: "Ok Computer.webp"},
+  { titulo: "Fitter Happier", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "1:57", portada: "Ok Computer.webp"},
+  { titulo: "Electioneering", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:50", portada: "Ok Computer.webp"},
+  { titulo: "Climbing Up the Walls", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:45", portada: "Ok Computer.webp"},
+  { titulo: "No Surprises", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:49", portada: "Ok Computer.webp"},
+  { titulo: "Lucky", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:18", portada: "Ok Computer.webp"},
+  { titulo: "The Tourist", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "5:26", portada: "Ok Computer.webp"},
   { titulo: "End Of An Era", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:16", portada: "Radical Optimism.webp"},
   { titulo: "Houdini", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:05", portada: "Radical Optimism.webp"},
   { titulo: "Training Season", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:29", portada: "Radical Optimism.webp"},
@@ -505,8 +505,8 @@ async function insertarCancionesEscuchadasPorUsuario(){
         
         for (const usuario of usuarios.rows) {
             let cancionesAsignadas = new Set();
-            // Asegurar que haya mínimo 10 canciones por usuario
-            while (cancionesAsignadas.size < 10) {
+            // Asegurar que haya mínimo 20 canciones por usuario
+            while (cancionesAsignadas.size < 20) {
                 const cancion = canciones.rows[Math.floor(Math.random() * canciones.rows.length)];
                 cancionesAsignadas.add(cancion);
             }
@@ -522,7 +522,7 @@ async function insertarCancionesEscuchadasPorUsuario(){
             }
         }
 
-        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 10 canciones.");
+        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 20 canciones.");
     } catch (err) {
         console.error("Error al insertar datos:", err);
     }

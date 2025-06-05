@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/MainPage-style.css"
 
-const MainPage = () => {
+const MainPage = ({ route }) => {
     return(
        
         <div className="MainPage-container">

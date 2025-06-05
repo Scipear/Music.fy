@@ -42,7 +42,7 @@ export async function loginUsuario(nombre, password) {
         //const contraseñaValida = await bcrypt.compare(password, userData.password);
 
         if (password == userData.password) {
-            return { success: true, message: 'Login exitoso', usuario: userData.nombre };
+            return { success: true, message: 'Login exitoso', usuarioid: userData.id };
         } else {
             return { success: false, message: 'Contraseña incorrecta' };
         }

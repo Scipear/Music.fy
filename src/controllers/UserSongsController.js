@@ -8,14 +8,13 @@ const client = new cassandra.Client({
 
 export const getUserLastSongs = async (req, res) => {
     try{
-        const { id } = req.params
-        const query = 'SELECT nombre, artista, album, genero, duracion, portada FROM usuario_cancion WHERE usuario_id = ? ORDER BY fecha_reproduccion DESC'
-        const result = await client.execute(query, [id], { prepare: true })
-
+        const { usuario_id } = req.params
+        const query = 'SELECT titulo, artista, album, genero, duracion, portada, fecha_reproduccion FROM usuario_cancion WHERE usuario_id = ? ORDER BY fecha_reproduccion DESC'
+        const result = await client.execute(query, [usuario_id], { prepare: true })
         if(result.rowLength === 0){
            res.json({ success: false, message: 'El usuario no tiene ninguna cancion escuchada' })
         }else{
-            res.json({ success: true, message: 'Canciones extraidas', songs: result })
+            res.json({ success: true, message: 'Canciones extraidas', songs: result.rows })
         }
 
     }catch(error){

@@ -12,7 +12,7 @@ app.use(cors()); // Ahora sí puedes usar CORS
 app.use(express.json());
 app.use(usuarioRoutes);
 app.use(recomendacionroutes);
-app.use(usersongsroutes)
+app.use(usersongsroutes);
 
 
 

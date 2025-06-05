@@ -21,7 +21,7 @@ const LoginPage = () => {
             setMensaje(response.data.message); // Guarda la respuesta del backend
 
             if(response.data.success){
-                navigate('/mainPage')
+                navigate('/recently-listened', { state: { usuario: response.data.usuarioid } }) //Le puse otra ruta para hacer las pruebas, la original es la mainPage
             }
         } catch (error) {
             setMensaje("error desde el front");
