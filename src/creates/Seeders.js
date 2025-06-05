@@ -311,18 +311,18 @@ const canciones = [
   { titulo: "House Of Cards", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "5:28", portada: "In Rainbows.webp"},
   { titulo: "Jigsaw Falling Into Place", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "4:08", portada: "In Rainbows.webp"},
   { titulo: "Videotape", artista: "Radiohead", album: "In Rainbows", genero: "Alternative Rock", duracion: "4:39", portada: "In Rainbows.webp"},
-  { titulo: "Airbag", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:47", portada: "OK Computer.webp"},
-  { titulo: "Paranoid Android", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "6:27", portada: "OK Computer.webp"},
-  { titulo: "Subterranean Momesick Alien", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "OK Computer.webp"},
-  { titulo: "Exit Music (For A Film)", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "OK Computer.webp"},
-  { titulo: "Let Down", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:59", portada: "OK Computer.webp"},
-  { titulo: "Karma Police", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:24", portada: "OK Computer.webp"},
-  { titulo: "Fitter Happier", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "1:57", portada: "OK Computer.webp"},
-  { titulo: "Electioneering", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:50", portada: "OK Computer.webp"},
-  { titulo: "Climbing Up the Walls", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:45", portada: "OK Computer.webp"},
-  { titulo: "No Surprises", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:49", portada: "OK Computer.webp"},
-  { titulo: "Lucky", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:18", portada: "OK Computer.webp"},
-  { titulo: "The Tourist", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "5:26", portada: "OK Computer.webp"},
+  { titulo: "Airbag", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:47", portada: "Ok Computer.webp"},
+  { titulo: "Paranoid Android", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "6:27", portada: "Ok Computer.webp"},
+  { titulo: "Subterranean Momesick Alien", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "Ok Computer.webp"},
+  { titulo: "Exit Music (For A Film)", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:27", portada: "Ok Computer.webp"},
+  { titulo: "Let Down", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:59", portada: "Ok Computer.webp"},
+  { titulo: "Karma Police", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:24", portada: "Ok Computer.webp"},
+  { titulo: "Fitter Happier", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "1:57", portada: "Ok Computer.webp"},
+  { titulo: "Electioneering", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:50", portada: "Ok Computer.webp"},
+  { titulo: "Climbing Up the Walls", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:45", portada: "Ok Computer.webp"},
+  { titulo: "No Surprises", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "3:49", portada: "Ok Computer.webp"},
+  { titulo: "Lucky", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "4:18", portada: "Ok Computer.webp"},
+  { titulo: "The Tourist", artista: "Radiohead", album: "OK Computer", genero: "Alternative Rock", duracion: "5:26", portada: "Ok Computer.webp"},
   { titulo: "End Of An Era", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:16", portada: "Radical Optimism.webp"},
   { titulo: "Houdini", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:05", portada: "Radical Optimism.webp"},
   { titulo: "Training Season", artista: "Dua Lipa", album: "Radical Optimism", genero: "Pop", duracion: "3:29", portada: "Radical Optimism.webp"},
@@ -498,39 +498,87 @@ async function insertarMultiplesUsuarios() {
 
 }
 
-async function insertarDatos() {
+async function insertarCancionesEscuchadasPorUsuario(){
     try {
-      
         const usuarios = await client.execute("SELECT id FROM usuarios");
-      
-        const canciones = await client.execute("SELECT id FROM canciones");
+        const canciones = await client.execute("SELECT id, titulo, artista, album, genero, duracion, portada FROM canciones");
         
         for (const usuario of usuarios.rows) {
             let cancionesAsignadas = new Set();
-
-            // Asegurar que haya mínimo 5 canciones por usuario
-            while (cancionesAsignadas.size < 5) {
+            // Asegurar que haya mínimo 20 canciones por usuario
+            while (cancionesAsignadas.size < 20) {
                 const cancion = canciones.rows[Math.floor(Math.random() * canciones.rows.length)];
-                cancionesAsignadas.add(cancion.id);
+                cancionesAsignadas.add(cancion);
             }
 
-            // 📌 3. Insertar los datos en `usuario_cancion`
-            for (const cancionId of cancionesAsignadas) {
+            // 3. Insertar los datos en `usuario_cancion`
+            for (const song of cancionesAsignadas) {
                 const fechaReproduccion = new Date(2025, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28));
                 await client.execute(
-                    "INSERT INTO usuario_cancion (usuario_id, cancion_id, fecha_reproduccion) VALUES (?, ?, ?)",
-                    [usuario.id, cancionId, fechaReproduccion]
+                    "INSERT INTO usuario_cancion (usuario_id, cancion_id, titulo, artista, album, genero, duracion, portada, fecha_reproduccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [usuario.id, song.id, song.titulo, song.artista, song.album, song.genero, song.duracion, song.portada, fechaReproduccion]
                 );
-                console.log(`Insertado: Usuario ${usuario.id} -> Canción ${cancionId}`);
+                console.log(`Insertado: Usuario ${usuario.id} -> Canción ${song.titulo}`);
             }
         }
 
-        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 5 canciones.");
+        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 20 canciones.");
     } catch (err) {
         console.error("Error al insertar datos:", err);
     }
 }
 
+/*RECOMENDACION DE CANCIONES POR REPRODUCCION */
+async function poblarCancionesPorUsuarios() {
+  try {
+      console.log("Obteniendo canciones desde la base de datos...");
+      
+      // Consultar todas las canciones
+      const cancionesQuery = 'SELECT id, titulo, artista, album, genero, duracion, portada FROM canciones';
+      const cancionesResult = await client.execute(cancionesQuery);
+      
+      console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
+      
+      for (const row of cancionesResult.rows) {
+          const reproducciones = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
+          
+          const insertQuery = 'INSERT INTO cancionesPorusuarios (cancion_id, titulo, artista, album, genero, duracion, portada, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+          await client.execute(insertQuery, [row.id, row.titulo, row.artista, row.album, row.genero, row.duracion, row.portada, reproducciones], { prepare: true });
+          
+          console.log(`Insertada: ${row.titulo} con ${reproducciones} reproducciones.`);
+        }
+        
+        console.log("¡Tabla cancionesPorusuarios poblada correctamente!");
+  } catch (error) {
+    console.error("Error al poblar la tabla:", error);
+  }
+}
+
+async function insertarCancionesPorGenero(){
+  try {
+      console.log("Obteniendo canciones desde la base de datos...");
+      
+      // Consultar todas las canciones
+      const cancionesQuery = 'SELECT cancion_id, titulo, artista, album, genero, duracion, portada, total FROM cancionesPorusuarios';
+      const cancionesResult = await client.execute(cancionesQuery);
+      
+      console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
+      
+      for (const row of cancionesResult.rows) {    
+          const insertQuery = 'INSERT INTO canciones_mas_escuchadas_por_genero (genero, cancion_id, titulo, artista, album, duracion, portada, reproducciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+          await client.execute(insertQuery, [row.genero, row.cancion_id, row.titulo, row.artista, row.album, row.duracion, row.portada, row.total], { prepare: true });
+          
+          console.log(`Insertada: ${row.titulo} con ${row.total} reproducciones.`);
+        }
+        
+        console.log("¡Tabla canciones_mas_escuchadas_por_genero poblada correctamente!");
+  } catch (error) {
+    console.error("Error al poblar la tabla:", error);
+  } finally {
+    await client.shutdown();
+  }
+}
+  
 async function runSeeders() {
   try {
     console.log('Insertando usuarios...');
@@ -540,7 +588,13 @@ async function runSeeders() {
     await InsertarMultiplesregistroCanciones();
 
     console.log('Vinculando usuarios con canciones...');
-    await insertarDatos();
+    await insertarCancionesEscuchadasPorUsuario();
+
+    console.log('Recomendacion por reproduccion cargada...');
+    await poblarCancionesPorUsuarios();
+
+    console.log('Recomendacion por genero cargada....')
+    await insertarCancionesPorGenero();
 
     console.log('Todos los datos fueron insertados correctamente.');
   } catch (err) {

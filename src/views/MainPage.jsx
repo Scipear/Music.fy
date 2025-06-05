@@ -3,6 +3,8 @@ import Sidebar from "../components/Sidebar";
 import "./styles/MainPage-style.css"
 import "./styles/Sidebar-style.css"
 
+import React, { useState, useEffect } from "react";
+import "./styles/MainPage-style.css";
 
 const MainPage = () => {
     return(
@@ -13,15 +15,10 @@ const MainPage = () => {
                 <div className="sidebar-container">
                     <Sidebar date='Arturo Padilla'/> 
                 </div>
-       
             </div>
 
             <div className="header-container">
                 <h1>Music.fy</h1>
-
-                
-
-                
             </div> 
             
 
@@ -29,15 +26,13 @@ const MainPage = () => {
                     <input type="text" placeholder ="Buscar artista..."/>
                         <div className="Busbutton-container">
                             <button> <i class="fa-duotone fa-solid fa-magnifying-glass"></i></button>    
-            </div> 
-                
+                        </div>     
             </div>
+
              <div className = "rec-container">
                 <div className="header2-container">
                     <h1>RECOMENDADO PARA TI</h1>
-            </div>
-
-
+                </div>
             </div>
 
 

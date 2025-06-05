@@ -30,22 +30,51 @@ async function crearTablas() {
     `CREATE TABLE usuario_cancion (
       usuario_id UUID,
       cancion_id UUID,
+      titulo TEXT,
+      artista TEXT,
+      album TEXT,
+      genero TEXT,
+      duracion TEXT,
+      portada TEXT,
       fecha_reproduccion TIMESTAMP,
       PRIMARY KEY (usuario_id, fecha_reproduccion, cancion_id)
     );`,
     /*Recomendacion canciones mas escuchadas*/
     `CREATE TABLE cancionesPorusuarios (
       cancion_id UUID,
+      titulo TEXT,
+      artista TEXT,
+      album TEXT,
+      genero TEXT,
+      duracion TEXT,
+      portada TEXT,
       total INT,
-      PRIMARY KEY(cancion_id, total)
+      PRIMARY KEY(cancion_id)
     );`,
     /*Recomendacion canciones mas escuchadas por genero */
+    `CREATE TABLE canciones_mas_escuchadas_por_genero (
+      genero TEXT,
+      cancion_id UUID,
+      titulo TEXT,
+      artista TEXT,
+      album TEXT,
+      duracion TEXT,
+      portada TEXT,
+      reproducciones INT,
+      PRIMARY KEY (genero, cancion_id)
+      );`,
+
     
     /* Segunda consulta olap */
     `CREATE TABLE cancion_mas_escuchadas_ciudad (
       ciudad TEXT,
       cancion_id UUID,
       titulo TEXT,
+      artista TEXT,
+      album TEXT,
+      genero TEXT,
+      duracion TEXT,
+      portada TEXT,
       reproducciones INT,
       PRIMARY KEY (ciudad, cancion_id)
     );`,
@@ -55,6 +84,11 @@ async function crearTablas() {
       mes TEXT,  
       cancion_id UUID,
       titulo TEXT,
+      artista TEXT,
+      album TEXT,
+      genero TEXT,
+      duracion TEXT,
+      portada TEXT,
       reproducciones INT, 
       PRIMARY KEY ((ciudad, mes), cancion_id)
     );`
