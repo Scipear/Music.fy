@@ -575,9 +575,69 @@ async function insertarCancionesPorGenero(){
   } catch (error) {
     console.error("Error al poblar la tabla:", error);
   } finally {
-    await client.shutdown();
+    
   }
 }
+
+async function PorciudadYGenero() {
+    try {
+        // Obtener todas las ciudades de usuarios
+        const queryUsuarios = `SELECT ciudad FROM usuarios;`;
+        const resultUsuarios = await client.execute(queryUsuarios);
+
+        // Filtrar ciudades únicas
+        const ciudadesUnicas = [...new Set(resultUsuarios.rows.map(row => row.ciudad))];
+        console.log(`✅ Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
+
+        // Lista de canciones organizadas por género
+        
+
+        for (const ciudad of ciudadesUnicas) {
+            // Mezclar canciones para obtener una distribución aleatoria en cada ciudad
+            const cancionesMezcladas = [...canciones].sort(() => Math.random() - 0.5);
+
+            // Asignar reproducciones aleatorias
+            let generoMasEscuchado = null;
+            let maxReproducciones = 0;
+
+            for (const cancion of cancionesMezcladas) {
+                const reproducciones = Math.floor(Math.random() * 20000); // Generar un número aleatorio de reproducciones
+
+                // Actualizar el género más escuchado de la ciudad
+                if (reproducciones > maxReproducciones) {
+                    maxReproducciones = reproducciones;
+                    generoMasEscuchado = cancion.genero;
+                }
+
+                const queryInsert = `
+                    INSERT INTO cancion_mas_escuchadas_ciudad (ciudad, cancion_id, titulo, artista, album, genero, duracion, portada, reproducciones)
+                    VALUES (?, uuid(), ?, ?, ?, ?, ?, ?, ?);
+                `;
+
+                await client.execute(queryInsert, [
+                    ciudad,
+                    cancion.titulo,
+                    cancion.artista,
+                    cancion.album,
+                    cancion.genero,
+                    cancion.duracion,
+                    cancion.portada,
+                    reproducciones
+                ], { prepare: true });
+
+                console.log(`✅ Insertada canción: ${cancion.titulo} (${cancion.genero}) en ${ciudad} con ${reproducciones} reproducciones`);
+            }
+
+            console.log(`🏆 En ${ciudad}, el género más escuchado es **${generoMasEscuchado}** con ${maxReproducciones} reproducciones.`);
+        }
+
+        console.log("🎉 Tabla poblada con múltiples géneros en cada ciudad, con variación en el género más escuchado.");
+    } catch (error) {
+        console.error("❌ Error al llenar la tabla:", error);
+    } finally {
+        await client.shutdown();
+    }
+};
   
 async function runSeeders() {
   try {
@@ -593,8 +653,11 @@ async function runSeeders() {
     console.log('Recomendacion por reproduccion cargada...');
     await poblarCancionesPorUsuarios();
 
-    console.log('Recomendacion por genero cargada....')
+    console.log('Recomendacion por genero cargada....');
     await insertarCancionesPorGenero();
+
+    console.log('Consulta OLAP por ciudad y genero....');
+    await PorciudadYGenero();
 
     console.log('Todos los datos fueron insertados correctamente.');
   } catch (err) {
