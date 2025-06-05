@@ -2,7 +2,8 @@ import express from 'express';
 import path from 'path';
 import usuarioRoutes from './src/routes/Usuarioroutes.js';
 import recomendacionroutes from './src/routes/recomendacionroutes.js';
-import usersongsroutes from './src/routes/UserSongsRoutes.js'
+import usersongsroutes from './src/routes/UserSongsRoutes.js';
+import Olapconsulta1 from './src/controllers/OLAPGeneroYCiudadController.js';
 
 import cors from "cors"; 
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(usuarioRoutes);
 app.use(recomendacionroutes);
 app.use(usersongsroutes);
+app.use(Olapconsulta1);
 
 
 
