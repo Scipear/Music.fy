@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import "./styles/MainPage-style.css"
-import "./styles/Sidebar-style.css"
-
-import React, { useState, useEffect } from "react";
-import "./styles/MainPage-style.css";
+import "./styles/Sidebar-style.css"// y esta es 
 
 const MainPage = () => {
     return(
