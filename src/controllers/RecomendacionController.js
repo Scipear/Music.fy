@@ -13,7 +13,7 @@ export async function obtenerTopCanciones(req, res) {
 
         // Consulta sin ORDER BY
         const query = `
-            SELECT cancion_id, nombre, artista, album, genero, duracion, portada, total 
+            SELECT cancion_id, titulo, artista, album, genero, duracion, portada, total 
             FROM cancionesPorusuarios;
         `;
 
@@ -25,7 +25,10 @@ export async function obtenerTopCanciones(req, res) {
         }
 
         // Ordenar los resultados en código
-        const topCanciones = result.rows.sort((a, b) => b.total - a.total).slice(0, 5);
+        const topCanciones = result.rows.sort((a, b) => b.total - a.total).slice(0, 5).map(row => ({
+    titulo: row.titulo,
+    reproducciones: row.total // Esto se envía al frontend
+}));
 
         console.log("Top 5 canciones más escuchadas:", topCanciones);
         res.json({ top_canciones: topCanciones });
