@@ -498,66 +498,87 @@ async function insertarMultiplesUsuarios() {
 
 }
 
-async function insertarDatos() {
+async function insertarCancionesEscuchadasPorUsuario(){
     try {
-      
         const usuarios = await client.execute("SELECT id FROM usuarios");
-      
-        const canciones = await client.execute("SELECT id FROM canciones");
+        const canciones = await client.execute("SELECT id, titulo, artista, album, genero, duracion, portada FROM canciones");
         
         for (const usuario of usuarios.rows) {
             let cancionesAsignadas = new Set();
-
-            // Asegurar que haya mínimo 5 canciones por usuario
-            while (cancionesAsignadas.size < 5) {
+            // Asegurar que haya mínimo 10 canciones por usuario
+            while (cancionesAsignadas.size < 10) {
                 const cancion = canciones.rows[Math.floor(Math.random() * canciones.rows.length)];
-                cancionesAsignadas.add(cancion.id);
+                cancionesAsignadas.add(cancion);
             }
 
-            // 📌 3. Insertar los datos en `usuario_cancion`
-            for (const cancionId of cancionesAsignadas) {
+            // 3. Insertar los datos en `usuario_cancion`
+            for (const song of cancionesAsignadas) {
                 const fechaReproduccion = new Date(2025, Math.floor(Math.random() * 12), Math.floor(Math.random() * 28));
                 await client.execute(
-                    "INSERT INTO usuario_cancion (usuario_id, cancion_id, fecha_reproduccion) VALUES (?, ?, ?)",
-                    [usuario.id, cancionId, fechaReproduccion]
+                    "INSERT INTO usuario_cancion (usuario_id, cancion_id, titulo, artista, album, genero, duracion, portada, fecha_reproduccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [usuario.id, song.id, song.titulo, song.artista, song.album, song.genero, song.duracion, song.portada, fechaReproduccion]
                 );
-                console.log(`Insertado: Usuario ${usuario.id} -> Canción ${cancionId}`);
+                console.log(`Insertado: Usuario ${usuario.id} -> Canción ${song.titulo}`);
             }
         }
 
-        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 5 canciones.");
+        console.log("¡Inserción completa! Todos los usuarios tienen mínimo 10 canciones.");
     } catch (err) {
         console.error("Error al insertar datos:", err);
     }
 }
+
 /*RECOMENDACION DE CANCIONES POR REPRODUCCION */
 async function poblarCancionesPorUsuarios() {
-    try {
-        console.log("Obteniendo canciones desde la base de datos...");
-
-        // Consultar todas las canciones
-        const cancionesQuery = 'SELECT id, titulo, artista, album, genero, duracion FROM canciones';
-        const cancionesResult = await client.execute(cancionesQuery);
-
-        console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
-
-        for (const row of cancionesResult.rows) {
-            const reproducciones = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
-
-            const insertQuery = 'INSERT INTO cancionesPorusuarios (cancion_id, nombre, artista, album, genero, duracion, total) VALUES (?, ?, ?, ?, ?, ?, ?)';
-            await client.execute(insertQuery, [row.id, row.titulo, row.artista, row.album, row.genero, row.duracion, reproducciones], { prepare: true });
-
-            console.log(`Insertada: ${row.titulo} con ${reproducciones} reproducciones.`);
+  try {
+      console.log("Obteniendo canciones desde la base de datos...");
+      
+      // Consultar todas las canciones
+      const cancionesQuery = 'SELECT id, titulo, artista, album, genero, duracion, portada FROM canciones';
+      const cancionesResult = await client.execute(cancionesQuery);
+      
+      console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
+      
+      for (const row of cancionesResult.rows) {
+          const reproducciones = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
+          
+          const insertQuery = 'INSERT INTO cancionesPorusuarios (cancion_id, titulo, artista, album, genero, duracion, portada, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+          await client.execute(insertQuery, [row.id, row.titulo, row.artista, row.album, row.genero, row.duracion, row.portada, reproducciones], { prepare: true });
+          
+          console.log(`Insertada: ${row.titulo} con ${reproducciones} reproducciones.`);
         }
-
-        console.log("¡Tabla cancionesPorusuarios poblada correctamente! 🚀");
-    } catch (error) {
-        console.error("Error al poblar la tabla:", error);
-    } finally {
-        await client.shutdown();
-    }
+        
+        console.log("¡Tabla cancionesPorusuarios poblada correctamente!");
+  } catch (error) {
+    console.error("Error al poblar la tabla:", error);
+  }
 }
 
+async function insertarCancionesPorGenero(){
+  try {
+      console.log("Obteniendo canciones desde la base de datos...");
+      
+      // Consultar todas las canciones
+      const cancionesQuery = 'SELECT cancion_id, titulo, artista, album, genero, duracion, portada, total FROM cancionesPorusuarios';
+      const cancionesResult = await client.execute(cancionesQuery);
+      
+      console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
+      
+      for (const row of cancionesResult.rows) {    
+          const insertQuery = 'INSERT INTO canciones_mas_escuchadas_por_genero (genero, cancion_id, titulo, artista, album, duracion, portada, reproducciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+          await client.execute(insertQuery, [row.genero, row.cancion_id, row.titulo, row.artista, row.album, row.duracion, row.portada, row.total], { prepare: true });
+          
+          console.log(`Insertada: ${row.titulo} con ${row.total} reproducciones.`);
+        }
+        
+        console.log("¡Tabla canciones_mas_escuchadas_por_genero poblada correctamente!");
+  } catch (error) {
+    console.error("Error al poblar la tabla:", error);
+  } finally {
+    await client.shutdown();
+  }
+}
+  
 async function runSeeders() {
   try {
     console.log('Insertando usuarios...');
@@ -567,9 +588,13 @@ async function runSeeders() {
     await InsertarMultiplesregistroCanciones();
 
     console.log('Vinculando usuarios con canciones...');
-    await insertarDatos();
+    await insertarCancionesEscuchadasPorUsuario();
+
     console.log('Recomendacion por reproduccion cargada...');
     await poblarCancionesPorUsuarios();
+
+    console.log('Recomendacion por genero cargada....')
+    await insertarCancionesPorGenero();
 
     console.log('Todos los datos fueron insertados correctamente.');
   } catch (err) {

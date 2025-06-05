@@ -13,7 +13,7 @@ export async function obtenerTopCanciones(req, res) {
 
         // Consulta sin ORDER BY
         const query = `
-            SELECT cancion_id, nombre, artista, album, genero, duracion, total 
+            SELECT cancion_id, nombre, artista, album, genero, duracion, portada, total 
             FROM cancionesPorusuarios;
         `;
 
