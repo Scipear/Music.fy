@@ -6,7 +6,10 @@ const client = new cassandra.Client({
     localDataCenter: 'datacenter1',
     keyspace: 'musicdb'
 });
-
+const meses = [
+    "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06",
+    "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12"
+];
 // Datos a insertar
 const datos = [
   {  password: '12345', nombre: 'Luis', ciudad: 'Ciudad Guayana', edad: 21},
@@ -635,9 +638,70 @@ async function PorciudadYGenero() {
     } catch (error) {
         console.error("❌ Error al llenar la tabla:", error);
     } finally {
-        await client.shutdown();
+        
     }
 };
+
+
+
+async function CancionMasEscuchadaPorMesEnCadaCiudad() {
+    try {
+        // Obtener todas las ciudades de usuarios
+        const queryUsuarios = `SELECT ciudad FROM usuarios;`;
+        const resultUsuarios = await client.execute(queryUsuarios);
+
+        // Filtrar ciudades únicas
+        const ciudadesUnicas = [...new Set(resultUsuarios.rows.map(row => row.ciudad))];
+        console.log(`✅ Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
+
+        for (const ciudad of ciudadesUnicas) {
+            for (const mes of meses) {
+                // Mezclar canciones y generar reproducciones aleatorias
+                const cancionesMezcladas = [...canciones]
+                    .sort(() => Math.random() - 0.5)
+                    .map(cancion => ({
+                        ...cancion,
+                        reproducciones: Math.floor(Math.random() * 20000)
+                    }))
+                    .sort((a, b) => b.reproducciones - a.reproducciones) // Ordenar por reproducciones
+
+                // Seleccionar las 3 canciones más escuchadas del mes en la ciudad
+                const topCanciones = cancionesMezcladas.slice(0, 3);
+
+                let generoMasEscuchado = topCanciones[0]?.genero; // Género de la canción con más reproducciones
+
+                for (const cancion of topCanciones) {
+                    const queryInsert = `
+                        INSERT INTO canciones_populares_por_mes (ciudad, mes, cancion_id, titulo, artista, album, genero, duracion, portada, reproducciones)
+                        VALUES (?, ?, uuid(), ?, ?, ?, ?, ?, ?, ?);
+                    `;
+
+                    await client.execute(queryInsert, [
+                        ciudad,
+                        mes,
+                        cancion.titulo,
+                        cancion.artista,
+                        cancion.album,
+                        cancion.genero,
+                        cancion.duracion,
+                        cancion.portada,
+                        cancion.reproducciones
+                    ], { prepare: true });
+
+                    console.log(`✅ TOP en ${ciudad} - ${mes}: ${cancion.titulo} (${cancion.genero}) con ${cancion.reproducciones} reproducciones`);
+                }
+
+                console.log(`🏆 En ${ciudad} en ${mes}, el género más escuchado es **${generoMasEscuchado}**`);
+            }
+        }
+
+        console.log("🎉 Tabla poblada con el top 3 de canciones más escuchadas por mes en cada ciudad.");
+    } catch (error) {
+        console.error("❌ Error al llenar la tabla:", error);
+    } finally {
+        await client.shutdown();
+    }
+}
   
 async function runSeeders() {
   try {
@@ -658,6 +722,9 @@ async function runSeeders() {
 
     console.log('Consulta OLAP por ciudad y genero....');
     await PorciudadYGenero();
+
+    console.log('Consulta OLAP por mes y ciudad....');
+    await CancionMasEscuchadaPorMesEnCadaCiudad();
 
     console.log('Todos los datos fueron insertados correctamente.');
   } catch (err) {
