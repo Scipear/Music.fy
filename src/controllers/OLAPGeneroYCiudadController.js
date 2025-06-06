@@ -10,16 +10,41 @@ const client = new cassandra.Client({
     keyspace: "musicdb"
 });
 
-// Endpoint para obtener canciones por ciudad y género
-router.get("/top-canciones-ciudad/:ciudad/:genero", async (req, res) => {
+export const getCities = async (req, res) => {
+    try{
+        const query = 'SELECT ciudad FROM cancion_mas_escuchadas_ciudad';
+        const result = await client.execute(query);
+        const ciudades = [...new Set(result.rows.map(row => row.ciudad))];
+        
+        res.json(ciudades);
+    }catch(error){
+        console.error("Error obteniendo ciudades", error);
+        res.status(500).json({ message: "Error al obtener ciudades" });
+    }
+}
+
+export const getGenres = async (req, res) => {
+    try{
+        const query = 'SELECT genero FROM cancion_mas_escuchadas_ciudad';
+        const result = await client.execute(query);
+        const generos = [...new Set(result.rows.map(row => row.genero))];
+        res.json(generos);
+    }catch(error){
+        console.error("Error obteniendo géneros", error);
+        res.status(500).json({ message: "Error al obtener géneros" });
+    }
+};
+
+
+export const getGenreAndCity = async (req, res) => {
     const { ciudad, genero } = req.params;
 
     try {
         // Consulta para obtener canciones de la ciudad y el género especificado
         const query = `
-            SELECT titulo, artista, album, genero, duracion, portada, reproducciones 
+            SELECT cancion_id, titulo, artista, album, genero, duracion, portada, reproducciones 
             FROM cancion_mas_escuchadas_ciudad 
-            WHERE ciudad = ? AND genero = ? ALLOW FILTERING;
+            WHERE ciudad = ? AND genero = ? ORDER BY reproducciones DESC ALLOW FILTERING;
         `;
         const result = await client.execute(query, [ciudad, genero], { prepare: true });
 
@@ -29,9 +54,7 @@ router.get("/top-canciones-ciudad/:ciudad/:genero", async (req, res) => {
 
         res.json({ canciones: result.rows });
     } catch (error) {
-        console.error("❌ Error al obtener canciones:", error);
+        console.error("Error al obtener canciones:", error);
         res.status(500).json({ mensaje: "Error al consultar la base de datos." });
     }
-});
-
-export default router;
+}

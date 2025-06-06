@@ -3,7 +3,8 @@ import path from 'path';
 import usuarioRoutes from './src/routes/Usuarioroutes.js';
 import recomendacionroutes from './src/routes/recomendacionroutes.js';
 import usersongsroutes from './src/routes/UserSongsRoutes.js';
-import Olapconsulta1 from './src/controllers/OLAPGeneroYCiudadController.js';
+import Olapconsulta1 from './src/routes/OLAPGeneroYCiudadroutes.js';
+import Olapconsulta2 from './src/controllers/OLAPCiudadYMesController.js';
 
 import cors from "cors"; 
 
@@ -15,6 +16,7 @@ app.use(usuarioRoutes);
 app.use(recomendacionroutes);
 app.use(usersongsroutes);
 app.use(Olapconsulta1);
+app.use(Olapconsulta2);
 
 
 
