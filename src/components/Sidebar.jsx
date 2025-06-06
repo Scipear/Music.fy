@@ -30,13 +30,13 @@ const Sidebar = ({ user, userid, opt1, opt1link, opt2, opt2link, opt3, opt3link}
                         </li>
 
                         <li>
-                            <button onClick={() => navigate(`${opt2link}`)}>
+                            <button onClick={() => navigate(`${opt2link}`, { state: { usuario: userid, nameUser: user } })}>
                                 {opt2}
                             </button>
                         </li>
 
                         <li>
-                            <button onClick={() => navigate(`${opt3link}`)}>
+                            <button onClick={() => navigate(`${opt3link}`, { state: { usuario: userid, nameUser: user } })}>
                                 {opt3}
                             </button>
                         </li>

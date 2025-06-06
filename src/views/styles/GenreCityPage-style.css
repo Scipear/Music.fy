@@ -1,0 +1,41 @@
+.select-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.select-container select{
+    border-radius: 10px;
+    border-width: 0px;
+    font-family: inherit;
+    color: #ffffff;
+    font-size: 2rem;
+    padding: 20px;
+    background-color: #3C3C3C;
+}
+
+.select-container button{
+    font-family: inherit;
+    font-size: 2.25rem;
+    border-width: 0px;
+    border-radius: 100px;
+    padding: 4px 56px;
+    margin-block-end: auto;
+    margin-block-start: 18px;
+    background-color: #478426;
+    color: #000000;
+    transition: 0.25s ease-in;
+}
+
+.select-container button:hover{
+    cursor: pointer;
+    background-color: #3b6e20;
+}
+
+.listened-songs-container .counting{
+    text-align: left;
+    font-size: 1.5rem;
+    margin: 0px;
+    margin-block-end: 20px;
+    padding-inline-start: 64px;
+}

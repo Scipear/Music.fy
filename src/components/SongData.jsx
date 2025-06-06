@@ -17,7 +17,6 @@ const SongData = ({titulo, artista, album, genero, duracion, portada}) => {
                     <p>Album: {album}</p>
                     <p>Genero: {genero}</p>
                     <p>Duracion: {duracion}</p>
-                    <p>Hora escuchada: 12:05:20 PM</p>
                 </div>
             </div>
         </div>

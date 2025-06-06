@@ -38,7 +38,7 @@ const ListenedPage = () => {
                 opt1={"Volver"} 
                 opt1link={"/mainPage"} 
                 opt2={"Canciones mas famosas por genero y ciudad"} 
-                opt2link={"/recently-listened"} 
+                opt2link={"/genre-city-listened"} 
                 opt3={"Canciones mas famosas por mes"} 
                 opt3link={"/recently-listened"}/>
             <div className="header-container">

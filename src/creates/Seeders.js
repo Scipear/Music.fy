@@ -590,7 +590,7 @@ async function PorciudadYGenero() {
 
         // Filtrar ciudades únicas
         const ciudadesUnicas = [...new Set(resultUsuarios.rows.map(row => row.ciudad))];
-        console.log(`✅ Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
+        console.log(`Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
 
         // Lista de canciones organizadas por género
         
@@ -628,15 +628,15 @@ async function PorciudadYGenero() {
                     reproducciones
                 ], { prepare: true });
 
-                console.log(`✅ Insertada canción: ${cancion.titulo} (${cancion.genero}) en ${ciudad} con ${reproducciones} reproducciones`);
+                console.log(`Insertada canción: ${cancion.titulo} (${cancion.genero}) en ${ciudad} con ${reproducciones} reproducciones`);
             }
 
-            console.log(`🏆 En ${ciudad}, el género más escuchado es **${generoMasEscuchado}** con ${maxReproducciones} reproducciones.`);
+            console.log(`En ${ciudad}, el género más escuchado es **${generoMasEscuchado}** con ${maxReproducciones} reproducciones.`);
         }
 
-        console.log("🎉 Tabla poblada con múltiples géneros en cada ciudad, con variación en el género más escuchado.");
+        console.log("Tabla poblada con múltiples géneros en cada ciudad, con variación en el género más escuchado.");
     } catch (error) {
-        console.error("❌ Error al llenar la tabla:", error);
+        console.error("Error al llenar la tabla:", error);
     } finally {
         
     }
@@ -652,7 +652,7 @@ async function CancionMasEscuchadaPorMesEnCadaCiudad() {
 
         // Filtrar ciudades únicas
         const ciudadesUnicas = [...new Set(resultUsuarios.rows.map(row => row.ciudad))];
-        console.log(`✅ Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
+        console.log(`Se encontraron ${ciudadesUnicas.length} ciudades únicas`);
 
         for (const ciudad of ciudadesUnicas) {
             for (const mes of meses) {
@@ -688,16 +688,16 @@ async function CancionMasEscuchadaPorMesEnCadaCiudad() {
                         cancion.reproducciones
                     ], { prepare: true });
 
-                    console.log(`✅ TOP en ${ciudad} - ${mes}: ${cancion.titulo} (${cancion.genero}) con ${cancion.reproducciones} reproducciones`);
+                    console.log(`TOP en ${ciudad} - ${mes}: ${cancion.titulo} (${cancion.genero}) con ${cancion.reproducciones} reproducciones`);
                 }
 
-                console.log(`🏆 En ${ciudad} en ${mes}, el género más escuchado es **${generoMasEscuchado}**`);
+                console.log(`En ${ciudad} en ${mes}, el género más escuchado es **${generoMasEscuchado}**`);
             }
         }
 
-        console.log("🎉 Tabla poblada con el top 3 de canciones más escuchadas por mes en cada ciudad.");
+        console.log("Tabla poblada con el top 3 de canciones más escuchadas por mes en cada ciudad.");
     } catch (error) {
-        console.error("❌ Error al llenar la tabla:", error);
+        console.error("Error al llenar la tabla:", error);
     } finally {
         await client.shutdown();
     }
@@ -730,7 +730,7 @@ async function runSeeders() {
   } catch (err) {
     console.error('Error durante la inserción:', err);
   } finally {
-    await client.shutdown(); // Cierra la conexión de forma segura al final
+    await client.shutdown();
   }
 }
 

@@ -76,7 +76,7 @@ async function crearTablas() {
       duracion TEXT,
       portada TEXT,
       reproducciones INT,
-      PRIMARY KEY (ciudad, cancion_id)
+      PRIMARY KEY (ciudad, reproducciones, cancion_id)
     );`,
     /* primera consulta olap */
     `CREATE TABLE canciones_populares_por_mes (
@@ -90,7 +90,7 @@ async function crearTablas() {
       duracion TEXT,
       portada TEXT,
       reproducciones INT, 
-      PRIMARY KEY ((ciudad, mes), cancion_id)
+      PRIMARY KEY ((ciudad, mes), reproducciones, cancion_id)
     );`
 
   ];

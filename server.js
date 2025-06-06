@@ -3,7 +3,7 @@ import path from 'path';
 import usuarioRoutes from './src/routes/Usuarioroutes.js';
 import recomendacionroutes from './src/routes/recomendacionroutes.js';
 import usersongsroutes from './src/routes/UserSongsRoutes.js';
-import Olapconsulta1 from './src/controllers/OLAPGeneroYCiudadController.js';
+import Olapconsulta1 from './src/routes/OLAPGeneroYCiudadroutes.js';
 
 import cors from "cors"; 
 

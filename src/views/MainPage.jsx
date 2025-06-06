@@ -16,7 +16,7 @@ const MainPage = () => {
                 opt1={"Escuchados recientemente"} 
                 opt1link={"/recently-listened"} 
                 opt2={"Canciones mas famosas por genero y ciudad"} 
-                opt2link={"/recently-listened"} 
+                opt2link={"/genre-city-listened"} 
                 opt3={"Canciones mas famosas por mes"} 
                 opt3link={"/recently-listened"}/>
 
