@@ -1,5 +1,5 @@
 # Music.fy
-> Una pagina web en donde puedes buscar y encontrar nuevas recomendaciones de música.
+Una pagina web en donde puedes buscar y encontrar nuevas recomendaciones de música.
 
 ## TECNOLOGIAS USADAS
 - Frontend
