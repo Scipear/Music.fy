@@ -35,7 +35,6 @@ export const getGenres = async (req, res) => {
     }
 };
 
-
 export const getGenreAndCity = async (req, res) => {
     const { ciudad, genero } = req.params;
 

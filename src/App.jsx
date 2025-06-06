@@ -5,6 +5,7 @@ import LoginPage from './views/LoginPage';
 import MainPage from './views/MainPage';
 import ListenedPage from './views/ListenedPage';
 import GenreCityPage from './views/GenreCityPage';
+import MonthCityPage from './views/MonthCityPage';
 import './App.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/mainPage" element={<MainPage/>} />
         <Route path="/recently-listened" element={<ListenedPage />} />
         <Route path="/genre-city-listened" element={<GenreCityPage />} />
+        <Route path="/month-city-listened" element={<MonthCityPage />} />
       </Routes>
     </Router>
   )

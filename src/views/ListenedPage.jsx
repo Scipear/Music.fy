@@ -40,7 +40,7 @@ const ListenedPage = () => {
                 opt2={"Canciones mas famosas por genero y ciudad"} 
                 opt2link={"/genre-city-listened"} 
                 opt3={"Canciones mas famosas por mes"} 
-                opt3link={"/recently-listened"}/>
+                opt3link={"/month-city-listened"}/>
             <div className="header-container">
                 <h1>Music.fy</h1>
             </div>

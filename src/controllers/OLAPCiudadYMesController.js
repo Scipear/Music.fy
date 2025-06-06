@@ -10,8 +10,33 @@ const client = new cassandra.Client({
     keyspace: "musicdb"
 });
 
+export const getCities = async (req, res) => {
+    try{
+        const query = 'SELECT ciudad FROM canciones_populares_por_mes';
+        const result = await client.execute(query);
+        const ciudades = [...new Set(result.rows.map(row => row.ciudad))];
+        
+        res.json(ciudades);
+    }catch(error){
+        console.error("Error obteniendo ciudades", error);
+        res.status(500).json({ message: "Error al obtener ciudades" });
+    }
+}
+
+export const getMonths = async (req, res) => {
+    try{
+        const query = 'SELECT mes FROM canciones_populares_por_mes';
+        const result = await client.execute(query);
+        const meses = [...new Set(result.rows.map(row => row.mes))];
+        res.json(meses);
+    }catch(error){
+        console.error("Error obteniendo géneros", error);
+        res.status(500).json({ message: "Error al obtener géneros" });
+    }
+};
+
 // Endpoint para obtener el Top 3 de canciones más escuchadas en una ciudad y mes
-router.get("/top-canciones/:ciudad/:mes", async (req, res) => {
+export const getCityAndMonth = async (req, res) =>  {
     const { ciudad, mes } = req.params;
 
     try {
@@ -27,14 +52,13 @@ router.get("/top-canciones/:ciudad/:mes", async (req, res) => {
             return res.status(404).json({ mensaje: "No hay canciones populares para esta ciudad y mes." });
         }
 
-        // Ordenar los resultados en el backend por reproducciones de forma descendente
         const topCanciones = result.rows.sort((a, b) => b.reproducciones - a.reproducciones).slice(0, 3);
 
         res.json({ canciones: topCanciones });
     } catch (error) {
-        console.error("❌ Error al obtener las canciones:", error);
+        console.error("Error al obtener las canciones:", error);
         res.status(500).json({ mensaje: "Error al consultar la base de datos." });
     }
-});
+}
 
 export default router;

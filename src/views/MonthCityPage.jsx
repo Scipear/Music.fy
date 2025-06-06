@@ -5,38 +5,38 @@ import "./styles/ListenedPage-style.css"
 import Sidebar from "../components/Sidebar"
 import SongData from "../components/SongData"
 
-const GenreCityPage = () => {
+const MonthCityPage = () => {
     const location = useLocation();
     const userid = location.state?.usuario || null;
     const nombre = location.state?.nameUser || null;
 
     const [ciudades, setCiudades] = useState([]);
-    const [generos, setGeneros] = useState([]);
+    const [meses, setMeses] = useState([]);
     const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
-    const [generoSeleccionado, setGeneroSeleccionado] = useState('');
+    const [mesSeleccionado, setMesSeleccionado] = useState('');
     const [canciones, setCanciones] = useState([]);
 
     useEffect(() => {
         const getCiudades = async () => {
-            const res = await fetch('http://localhost:3000/cities');
+            const res = await fetch('http://localhost:3000/top-canciones/cities');
             const data = await res.json();
             setCiudades(data);
         };
 
-        const getGeneros = async () => {
-            const res = await fetch('http://localhost:3000/genres');
+        const getMeses = async () => {
+            const res = await fetch('http://localhost:3000/months');
             const data = await res.json();
-            setGeneros(data);
+            setMeses(data);
         };
 
         getCiudades();
-        getGeneros();
+        getMeses();
     }, []);
 
     const handleBuscar = async () => {
-        if (!ciudadSeleccionada || !generoSeleccionado) return;
+        if (!ciudadSeleccionada || !mesSeleccionado) return;
 
-        const res = await fetch(`http://localhost:3000/top-canciones-ciudad/${ciudadSeleccionada}/${generoSeleccionado}`);
+        const res = await fetch(`http://localhost:3000/top-canciones/${ciudadSeleccionada}/${mesSeleccionado}`);
         const data = await res.json();
         setCanciones(data.canciones);
     };
@@ -50,8 +50,8 @@ const GenreCityPage = () => {
                 opt1link={"/mainPage"} 
                 opt2={"Escuchados recientemente"} 
                 opt2link={"/recently-listened"} 
-                opt3={"Canciones mas famosas por mes"} 
-                opt3link={"/month-city-listened"}/>
+                opt3={"Canciones mas famosas por genero y ciudad"} 
+                opt3link={"/genre-city-listened"} />
             <div className="header-container">
                 <h1>Music.fy</h1>
             </div>
@@ -67,10 +67,10 @@ const GenreCityPage = () => {
                         ))}
                     </select>
 
-                    <select onChange={(e) => setGeneroSeleccionado(e.target.value)}>
-                        <option value="">Seleccione un género</option>
-                        {generos.map((genero, idx) => (
-                            <option key={idx} value={genero}>{genero}</option>
+                    <select onChange={(e) => setMesSeleccionado(e.target.value)}>
+                        <option value="">Seleccione un mes</option>
+                        {meses.map((mes, idx) => (
+                            <option key={idx} value={mes}>{mes}</option>
                         ))}
                     </select>
 
@@ -104,4 +104,4 @@ const GenreCityPage = () => {
     )
 }
 
-export default GenreCityPage
+export default MonthCityPage
