@@ -1,3 +1,5 @@
+import React from "react";
+import { useLocation } from "react-router-dom"
 import Sidebar from "../components/Sidebar";
 import "./styles/MainPage-style.css"
 
@@ -32,6 +34,9 @@ const MainPage = () => {
                     <h1>RECOMENDADO PARA TI</h1>
                 </div>
             </div>
+
+            
+
         </div>
     )
 }
