@@ -35,6 +35,9 @@ const MainPage = () => {
                     <h1>RECOMENDADO PARA TI</h1>
                 </div>
             </div>
+
+            
+
         </div>
     )
 }
