@@ -24,7 +24,7 @@ const Sidebar = ({ user, userid, opt1, opt1link, opt2, opt2link, opt3, opt3link}
                     <h2>{user}</h2>
                     <ul>
                         <li>
-                            <button onClick={() => navigate(`${opt1link}`, { state: { usuario: userid } })}>
+                            <button onClick={() => navigate(`${opt1link}`, { state: { usuario: userid, nameUser: user } })}>
                                 {opt1}
                             </button>
                         </li>

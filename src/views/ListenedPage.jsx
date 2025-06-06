@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import "./styles/ListenedPage-style.css"
 import ListenedSongs from "../components/ListenedSongs"
+import Sidebar from "../components/Sidebar"
 
 const ListenedPage = () => {
     const location = useLocation();
     const userid = location.state?.usuario || null;
+    const nombre = location.state?.nameUser || null;
+
     const [songsByDate, setSongsByDate] = useState({});
 
     useEffect(() => {
@@ -29,6 +32,15 @@ const ListenedPage = () => {
 
     return(
         <div className="listened-container">
+            <Sidebar 
+                user={nombre}
+                userid={userid}
+                opt1={"Volver"} 
+                opt1link={"/mainPage"} 
+                opt2={"Canciones mas famosas por genero y ciudad"} 
+                opt2link={"/recently-listened"} 
+                opt3={"Canciones mas famosas por mes"} 
+                opt3link={"/recently-listened"}/>
             <div className="header-container">
                 <h1>Music.fy</h1>
             </div>
