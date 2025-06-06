@@ -6,11 +6,12 @@ import "./styles/MainPage-style.css"
 const MainPage = () => {
     const location = useLocation();
     const userid = location.state?.usuario || null;
+    const nombre = location.state?.nameUser || null;
 
     return(
         <div className="MainPage-container">
             <Sidebar 
-                user={"Arturo Padilla"}
+                user={nombre}
                 userid={userid}
                 opt1={"Escuchados recientemente"} 
                 opt1link={"/recently-listened"} 
