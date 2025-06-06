@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-//import {nombre, titulo, album,genero} from "../components/CancionesRec";
 import "./styles/MainPage-style.css"
 import "./styles/Sidebar-style.css"
 
@@ -10,17 +9,7 @@ const MainPage = () => {
         <div className="MainPage-container">
            
             <div className="sidebar">
-               
-            <div className="menu">
-                    <label htmlFor="btn-menu"><i for="btn-menu" class="fa-solid fa-bars"></i></label>
-                 </div>
-          <div className="check">
-            <input type="checkbox" id="btn-menu" />
-          </div>
-           
-              
-            <div className="sidebar-container">
-
+                <div className="sidebar-container">
                     <Sidebar date='Arturo Padilla'/> 
                         <ul>
                             <li>
@@ -31,14 +20,24 @@ const MainPage = () => {
                                 <a href="">Cerra Sesion</a>
                             </li>
                         </ul>
-            <label htmlFor=""><i class="fa-solid fa-xmark"></i></label>
-            </div>
-            
-            </div>     
+                <label htmlFor=""><i class="fa-solid fa-xmark"></i></label>
+                </div>
            
+            </div>    
+
+
+            <div className="icon-container">
+               <label htmlFor="btn-menu"><i for="btn-menu" class="fa-solid fa-bars"></i></label>
+            </div>
+
+            <div className="cheack-container">
+                <input type="checkbox" id="btn-menu" />
+            </div>
+
 
             <div className="header-container">
                 <h1>Music.fy</h1>
+
             </div> 
 
 
@@ -55,8 +54,6 @@ const MainPage = () => {
                 </div>
             </div>
 
-
-        {/* <CancionesRec/> */}
 
 
         </div>
