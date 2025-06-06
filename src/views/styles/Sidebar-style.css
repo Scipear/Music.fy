@@ -12,8 +12,8 @@
     background-color:rgb(78, 78, 78);
     transition: .5s;
     box-shadow: 0 5px 15px 10px rgb(130, 196, 56);
-    opacity: 0;
-    visibility: hidden;   
+    /* opacity: 0;
+    visibility: hidden;    */
 }
 
 /* MENU CHECK */

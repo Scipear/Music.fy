@@ -1,7 +1,8 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
+//import {nombre, titulo, album,genero} from "../components/CancionesRec";
 import "./styles/MainPage-style.css"
-import "./styles/Sidebar-style.css"// y esta es 
+import "./styles/Sidebar-style.css"
 
 const MainPage = () => {
     return(
@@ -54,6 +55,8 @@ const MainPage = () => {
                 </div>
             </div>
 
+
+        {/* <CancionesRec/> */}
 
 
         </div>
