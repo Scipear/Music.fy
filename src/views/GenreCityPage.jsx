@@ -57,7 +57,7 @@ const GenreCityPage = () => {
             </div>
 
             <div className="listened-main-container">
-                <h1>LO MAS ESCUCHADO</h1>
+                <h1>LO MAS ESCUCHADO EN</h1>
 
                 <div className="select-container">
                     <select onChange={(e) => setCiudadSeleccionada(e.target.value)}>

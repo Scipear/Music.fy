@@ -23,9 +23,9 @@ async function borrarTablas() {
         try {
             const query = `DROP TABLE IF EXISTS ${tabla};`;
             await client.execute(query);
-            console.log(`✅ Tabla ${tabla} eliminada correctamente.`);
+            console.log(`Tabla ${tabla} eliminada correctamente.`);
         } catch (error) {
-            console.error(`❌ Error al eliminar la tabla ${tabla}:`, error);
+            console.error(`Error al eliminar la tabla ${tabla}:`, error);
         }
     }
     await client.shutdown();

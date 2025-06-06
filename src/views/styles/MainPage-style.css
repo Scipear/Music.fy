@@ -23,14 +23,10 @@
     text-align: left;
 }
 
-.rec-container h1{
-    font-size: 64px;
-}
-
 .header2-container h1{
     text-align: left;
+    font-size: 5rem;
 }
-
 
 /*Boton*/
 .buscador{
@@ -68,4 +64,37 @@
 
 .Busbutton-container button:hover{
     background-color: transparent;
+}
+
+.song-repeating-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-inline: 200px;
+    position: relative;
+    z-index: 1;
+}
+
+.song-repeating-main{
+    color: #ffffff;
+    padding-block: 25px;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 2;
+}
+
+.song-repeating-main:hover{
+    background-color: #252525;
+}
+
+.song-repeating-main p{
+    font-size: 1.5rem;
+}
+
+.dimmed {
+    opacity: 0.6;
+    filter: blur(2px);
+}
+
+.highlight {
+    z-index: 3;
+    transform: scale(1.05);
 }

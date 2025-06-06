@@ -543,7 +543,7 @@ async function poblarCancionesPorUsuarios() {
       console.log(`Se encontraron ${cancionesResult.rows.length} canciones. Poblando la tabla...`);
       
       for (const row of cancionesResult.rows) {
-          const reproducciones = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
+          const reproducciones = Math.floor(Math.random() * 20000); // Número aleatorio entre 0 y 999
           
           const insertQuery = 'INSERT INTO cancionesPorusuarios (cancion_id, titulo, artista, album, genero, duracion, portada, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
           await client.execute(insertQuery, [row.id, row.titulo, row.artista, row.album, row.genero, row.duracion, row.portada, reproducciones], { prepare: true });

@@ -2,7 +2,7 @@ import React from "react"
 import ImaginalDisk from "/assets/Imaginal Disk.jpg"
 import "../views/styles/CancionesRec-style.css"
 
-const CancionesRec = ({titulo, artista, genero, portada}) => {
+const CancionesRec = ({titulo, artista, album, genero, duracion, portada}) => {
     return (
         //Cambiar estos datos estaticos por los datos proporcionados por la base de datos
         <div className="cancionesrec">
@@ -11,13 +11,13 @@ const CancionesRec = ({titulo, artista, genero, portada}) => {
                     <img src={`/assets/${portada}`}/>
                 </div>
 
-                <div> 
-                    <h4>Artista: {artista}</h4>
-                    <h4>Titulo: {artista}</h4>
-                    <h4>Album: {titulo}</h4>
-                    <h4>Genero: {genero}</h4>
-                 </div>
-
+                <div className="info-song-container"> 
+                    <p>Titulo: {titulo}</p>
+                    <p>Artista: {artista}</p>
+                    <p>Album: {album}</p>
+                    <p>Genero: {genero}</p>
+                    <p>Duracion: {duracion}</p>
+                </div>
             </div>
         </div>
     )

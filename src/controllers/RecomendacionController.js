@@ -11,11 +11,9 @@ export async function obtenerTopCanciones(req, res) {
     try {
         console.log("Ejecutando consulta para obtener todas las canciones...");
 
-        // Consulta sin ORDER BY
         const query = `
             SELECT cancion_id, titulo, artista, album, genero, duracion, portada, total 
-            FROM cancionesPorusuarios;
-        `;
+            FROM cancionesPorusuarios;`;
 
         const result = await client.execute(query);
         console.log("Resultados obtenidos:", result.rows);
@@ -25,10 +23,7 @@ export async function obtenerTopCanciones(req, res) {
         }
 
         // Ordenar los resultados en código
-        const topCanciones = result.rows.sort((a, b) => b.total - a.total).slice(0, 5).map(row => ({
-    titulo: row.titulo,
-    reproducciones: row.total // Esto se envía al frontend
-}));
+        const topCanciones = result.rows.sort((a, b) => b.total - a.total).slice(0, 9);
 
         console.log("Top 5 canciones más escuchadas:", topCanciones);
         res.json({ top_canciones: topCanciones });

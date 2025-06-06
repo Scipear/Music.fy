@@ -1,23 +1,20 @@
 .cancionesrec{
     display: inline-block;
-   
-    
 }
 
 .cancionesrec-container{
-    padding: 150px;
     color: aliceblue;
 }
 
-.imagine-container{
-    height: 20vh; 
+.cancionesrec img{
+    object-fit: contain;
+    width: 200px;
 }
 
-
-
-.cancionesrec img{
-    box-shadow: 5px 5px 5px 5px rgb(130, 196, 25);
-    
+.info-song-container p{
+    text-align: left;
+    width: 350px;
+    font-size: 1.5rem;
 }
 
 

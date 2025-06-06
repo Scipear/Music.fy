@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AmongMySwan from "/assets/Among My Swan.jpg"
 import { useLocation } from "react-router-dom"
 import Sidebar from "../components/Sidebar";
@@ -10,6 +10,19 @@ const MainPage = () => {
     const location = useLocation();
     const userid = location.state?.usuario || null;
     const nombre = location.state?.nameUser || null;
+    
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [canciones, setCanciones] = useState([]);
+
+    useEffect(() => {
+        const getCanciones = async () => {
+            const res = await fetch('http://localhost:3000/top-canciones');
+            const data = await res.json();
+            setCanciones(data.top_canciones);
+        }
+
+        getCanciones()
+    }, [])
 
     return(
         <div className="MainPage-container">
@@ -33,61 +46,29 @@ const MainPage = () => {
                 </div>     
             </div>
 
-             <div className = "rec-container">
+            <div className = "rec-container">
                 <div className="header2-container">
-                    <h1>RECOMENDADO PARA TI</h1>
+                    <h1>RECOMENDADO PARA TI: LO MAS ESCUCHADO</h1>
                 </div>
             </div>
-                <div>
-                    <CancionesRec
-                    img src = {AmongMySwan}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                    <CancionesRec
-                    img src = {""}
-                    artista ={""}
-                    titulo={""}
-                    album = {""}
-                    genero = {""}/>
-                </div>
+
+            <div className="song-repeating-container">
+                {canciones.map((cancion, idx) => (
+                    <div key={idx}
+                        className={`song-repeating-main ${hoveredIndex !== null && hoveredIndex !== idx ? 'dimmed' : 'highlight'}`}
+                        onMouseEnter={() => setHoveredIndex(idx)}
+                        onMouseLeave={() => setHoveredIndex(null)}>
+                        <CancionesRec
+                            titulo={cancion.titulo}
+                            artista ={cancion.artista}
+                            album = {cancion.album}
+                            genero = {cancion.genero}
+                            duracion = {cancion.duracion}
+                            portada = {cancion.portada}/>
+                        <p>Reproducciones: {cancion.total}</p>
+                    </div>
+                ))}
+            </div>
 
         </div>
     )
