@@ -1,7 +1,10 @@
 import React from "react";
+import AmongMySwan from "/assets/Among My Swan.jpg"
 import { useLocation } from "react-router-dom"
 import Sidebar from "../components/Sidebar";
+import CancionesRec from "../components/CancionesRec";
 import "./styles/MainPage-style.css"
+
 
 const MainPage = () => {
     const location = useLocation();
@@ -35,8 +38,56 @@ const MainPage = () => {
                     <h1>RECOMENDADO PARA TI</h1>
                 </div>
             </div>
-
-            
+                <div>
+                    <CancionesRec
+                    img src = {AmongMySwan}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                    <CancionesRec
+                    img src = {""}
+                    artista ={""}
+                    titulo={""}
+                    album = {""}
+                    genero = {""}/>
+                </div>
 
         </div>
     )
