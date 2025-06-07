@@ -10,6 +10,10 @@ const Sidebar = ({ user, userid, opt1, opt1link, opt2, opt2link, opt3, opt3link}
         setOpen(!open);
     };
 
+    const handleLoginClick = () => {
+        navigate('/');
+    }
+
     return(
         <>
             <aside className={`sidebar-container ${open ? 'abierto' : 'cerrado'}`}>
@@ -42,9 +46,7 @@ const Sidebar = ({ user, userid, opt1, opt1link, opt2, opt2link, opt3, opt3link}
                         </li>
 
                         <li>
-                            <button>
-                                Cerrar Sesion
-                            </button>
+                            <button onClick={handleLoginClick}>Cerrar Sesion</button>
                         </li>
                     </ul>
                 </div>
